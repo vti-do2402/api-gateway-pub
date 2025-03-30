@@ -9,8 +9,7 @@ spring:
         corsConfigurations:
           "[/**]":
             allowedOrigins:
-              - "http://localhost:3000"
-              - "http://localhost"
+              - ${UI_SERVICE_URL:http://localhost:3000}
             allowedMethods:
               - GET
               - POST
@@ -22,7 +21,7 @@ spring:
       routes:
         # Route to backend-service
         - id: backend-service
-          uri: http://backend-service:8082 # Docker service name
+          uri: ${BACKEND_SERVICE_URL:http://backend-service:8082} # Docker service name
           predicates:
             - Path=/api/metrics/**
           filters:
@@ -30,7 +29,7 @@ spring:
 
         # Route to database-service
         - id: database-service
-          uri: http://database-service:8081 # Docker service name
+          uri: ${DATABASE_SERVICE_URL:http://database-service:8081} # Docker service name
           predicates:
             - Path=/api/deployments/**
           filters:
