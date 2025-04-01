@@ -34,6 +34,7 @@ COPY --from=builder /workspace/app/target/*.jar app.jar
 # Set Application variables
 ENV APP_NAME=api-gateway \
     SERVER_PORT=8080 \
+    SERVER_ADDRESS=0.0.0.0 \
     UI_SERVICE_URL=http://localhost:3000 \
     BACKEND_SERVICE_URL=http://backend-service:8082 \
     DATABASE_SERVICE_URL=http://database-service:8081

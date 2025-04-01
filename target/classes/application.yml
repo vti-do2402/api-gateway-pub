@@ -1,14 +1,15 @@
 server:
-  port: 8080  # API Gateway port
-  address: 0.0.0.0
+  port: ${SERVER_PORT:-8080} # API Gateway port
+  address: ${SERVER_ADDRESS:-0.0.0.0}
 
 spring:
   cloud:
     gateway:
       globalcors:
         corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000"
+          "[/**]":
+            allowedOrigins:
+              - ${UI_SERVICE_URL:http://localhost:3000}
             allowedMethods:
               - GET
               - POST
@@ -20,15 +21,15 @@ spring:
       routes:
         # Route to backend-service
         - id: backend-service
-          uri: http://backend-service:8082  # Docker service name
+          uri: ${BACKEND_SERVICE_URL:http://backend-service:8082} # Docker service name
           predicates:
             - Path=/api/metrics/**
           filters:
-            - StripPrefix=0  # Keep the full path
+            - StripPrefix=0 # Keep the full path
 
         # Route to database-service
         - id: database-service
-          uri: http://database-service:8081  # Docker service name
+          uri: ${DATABASE_SERVICE_URL:http://database-service:8081} # Docker service name
           predicates:
             - Path=/api/deployments/**
           filters:
