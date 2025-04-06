@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api-gateway-test
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+
+server:
+  port: 0 # Random port for testing
